@@ -3,11 +3,12 @@ package pro.sky.homework_collections.Interface;
 import pro.sky.homework_collections.Employee;
 
 import java.util.List;
+import java.util.Map;
 
 public interface EmployeeInterface {
-    List<Employee> addEmployee(String firstName, String lastName);
+    Employee addEmployee(String firstName, String lastName);
 
-    Employee removeEmployee(String firstName, String lastName);
-    Employee findEmployee(String firstName, String lastName);
-    List<Employee> printAllEmployees();
+    Employee removeEmployee(String fullName);
+    Employee findEmployee(String fullName);
+    Map<String, Employee> printAllEmployees();
 }

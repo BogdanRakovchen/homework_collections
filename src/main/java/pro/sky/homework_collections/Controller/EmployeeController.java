@@ -12,6 +12,7 @@ import pro.sky.homework_collections.RuntimeExceptios.EmployeeStorageIsFullExcept
 import pro.sky.homework_collections.Service.EmployeeServiceImp;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/employee")
@@ -23,9 +24,13 @@ public class EmployeeController {
         this.employeeServiceImp = employeeServiceImp;
     }
     @GetMapping(path = "/add")
-    public List<Employee> addEmployee(
+    public Employee addEmployee(
             @RequestParam("firstName") String firstName,
-            @RequestParam("lastName") String lastName) {
+            @RequestParam("lastName") String lastName
+//            @RequestParam("department") String department,
+//            @RequestParam("salary") int salary
+
+    ) {
         try {
             return employeeServiceImp.addEmployee(firstName, lastName);
 
@@ -33,13 +38,12 @@ public class EmployeeController {
             throw new RuntimeException(e);
         }
     }
-
+//
     @GetMapping(path = "/remove")
     public Employee removeEmployee(
-            @RequestParam("firstName") String firstName,
-            @RequestParam("lastName") String lastName) {
+            @RequestParam("fullName") String fullName) {
         try {
-            return employeeServiceImp.removeEmployee(firstName, lastName);
+            return employeeServiceImp.removeEmployee(fullName);
 
         } catch (EmployeeNotFoundException e) {
             throw new RuntimeException(e);
@@ -48,10 +52,9 @@ public class EmployeeController {
 
     @GetMapping(path = "/find")
     public Employee findEmployee(
-            @RequestParam("firstName") String firstName,
-            @RequestParam("lastName") String lastName) {
+            @RequestParam("fullName") String fullName) {
         try {
-            return employeeServiceImp.findEmployee(firstName, lastName);
+            return employeeServiceImp.findEmployee(fullName);
 
         } catch (EmployeeNotFoundException e) {
             throw new RuntimeException(e);
@@ -59,7 +62,7 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/print")
-    public List<Employee> printAllEmployees() {
+    public Map<String, Employee> printAllEmployees() {
         try {
             return employeeServiceImp.printAllEmployees();
 

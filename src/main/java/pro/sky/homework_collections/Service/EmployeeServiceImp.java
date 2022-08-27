@@ -1,72 +1,68 @@
 package pro.sky.homework_collections.Service;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.stereotype.Service;
 import pro.sky.homework_collections.Employee;
 import pro.sky.homework_collections.Interface.EmployeeInterface;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class EmployeeServiceImp implements EmployeeInterface {
 
-    List<Employee> employees = new ArrayList<>();
+    Map<String, Employee> employees = new HashMap<>(Map.of(
+            "Иван Иванов",
+            new Employee("Иван", "Иванов"),
+            "Федор Румянцев",
+            new Employee( "Федор","Румянцев"),
+            "Анастасия Сидорова",
+            new Employee( "Анастасия","Сидорова"),
+            "Андрей Копылов",
+           new Employee( "Андрей", "Копылов"),
+            "Виктор Станиславский",
+            new Employee( "Виктор", "Станиславский")
+)
+    );
 
     @Override
-    public List<Employee> addEmployee(String firstName, String lastName) {
+    public Employee addEmployee(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        employees.add(employee);
-        for (int i = 0; i < employees.size() - 1; i++) {
-            if (employees.get(i).getFirstName().equals(firstName) && employees.get(i).getLastName().equals(lastName)) {
-                throw new RuntimeException("is already");
-            }
+
+        employees.put(firstName + " " + lastName, employee);
+
+        Iterator<Employee> employeeIterator = employees.values().iterator();
+        if(employeeIterator.next().getFirstName().equals(firstName) && employeeIterator.next().getLastName().equals(lastName) ) {
+            throw new RuntimeException("is already");
 
         }
         if (employees.size() > 10) {
             throw new RuntimeException("is full");
         }
 
-        return employees;
-
-    }
-
-    @Override
-    public Employee removeEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-
-        for(Employee employee1 : employees ) {
-            if(employees.contains(employee1)) {
-                int newEmployee;
-                newEmployee = employees.indexOf(employee);
-                return employees.remove(newEmployee);
-            } else {
-                throw new RuntimeException("not found employee");
-            }
-        }
-        return employee;
-    }
-
-    @Override
-    public Employee findEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-
-        for(Employee employee1 : employees ) {
-            if(employees.contains(employee1)) {
-                int newEmployee;
-                newEmployee = employees.indexOf(employee);
-                return employees.get(newEmployee);
-            } else {
-                throw new RuntimeException("not found employee");
-            }
-        }
-
         return employee;
 
     }
+
     @Override
-    public List<Employee> printAllEmployees() {
-        return new ArrayList<>(employees);
+    public Employee removeEmployee(String fullName) {
+        if(employees.containsKey(fullName)) {
+            return employees.remove(fullName);
+        } else {
+            throw new RuntimeException("not found employee");
+        }
+
+    }
+
+    @Override
+    public Employee findEmployee(String fullName) {
+        if(employees.containsKey(fullName)) {
+            return employees.get(fullName);
+        } else {
+            throw new RuntimeException("not found employee");
+        }
+    }
+    @Override
+    public Map<String, Employee> printAllEmployees() {
+        return new HashMap<>(employees);
     }
 
 }
