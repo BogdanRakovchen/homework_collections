@@ -10,27 +10,27 @@ import java.util.*;
 public class EmployeeServiceImp implements EmployeeInterface {
 
     Map<String, Employee> employees = new HashMap<>(Map.of(
-            "Иван Иванов",
-            new Employee("Иван", "Иванов"),
-            "Федор Румянцев",
-            new Employee( "Федор","Румянцев"),
-            "Анастасия Сидорова",
-            new Employee( "Анастасия","Сидорова"),
-            "Андрей Копылов",
-           new Employee( "Андрей", "Копылов"),
-            "Виктор Станиславский",
-            new Employee( "Виктор", "Станиславский")
-)
+                    "1",
+                    new Employee("Иван", "Иванов", "1", 50_145),
+                    "2",
+                    new Employee( "Федор","Румянцев", "1", 70_445),
+                    "3",
+                    new Employee( "Анастасия","Сидорова", "2", 56_132),
+                    "4",
+                    new Employee( "Андрей", "Копылов", "2", 52_545),
+                    "5",
+                    new Employee( "Виктор", "Станиславский", "3", 65_346)
+            )
     );
 
     @Override
-    public Employee addEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee addEmployee(String firstName, String lastName, String department, int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
 
         employees.put(firstName + " " + lastName, employee);
 
         Iterator<Employee> employeeIterator = employees.values().iterator();
-        if(employeeIterator.next().getFirstName().equals(firstName) && employeeIterator.next().getLastName().equals(lastName) ) {
+        if(employeeIterator.next().getFirstName().equals(firstName) && employeeIterator.next().getLastName().equals(lastName)) {
             throw new RuntimeException("is already");
 
         }
@@ -64,6 +64,7 @@ public class EmployeeServiceImp implements EmployeeInterface {
     public Map<String, Employee> printAllEmployees() {
         return new HashMap<>(employees);
     }
+
 
 }
 

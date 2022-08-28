@@ -1,6 +1,8 @@
 package pro.sky.homework_collections.Controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +18,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/employee")
+
+
+
 public class EmployeeController {
 
     private final EmployeeServiceImp employeeServiceImp;
@@ -26,13 +31,13 @@ public class EmployeeController {
     @GetMapping(path = "/add")
     public Employee addEmployee(
             @RequestParam("firstName") String firstName,
-            @RequestParam("lastName") String lastName
-//            @RequestParam("department") String department,
-//            @RequestParam("salary") int salary
+            @RequestParam("lastName") String lastName,
+            @RequestParam("department") String department,
+            @RequestParam("salary") int salary
 
     ) {
         try {
-            return employeeServiceImp.addEmployee(firstName, lastName);
+            return employeeServiceImp.addEmployee(firstName, lastName, department, salary);
 
         } catch (EmployeeAlreadyAdded | EmployeeStorageIsFullException e) {
             throw new RuntimeException(e);
