@@ -21,14 +21,14 @@ public class EmployeeServiceImp implements EmployeeInterface {
     }
 
     Map<String, Employee> employees = new HashMap<>(Map.of(
-                    "1",
-                    new Employee("Иван", "Иванов", "1", 50_145),
                     "2",
+                    new Employee("Иван", "Иванов", "2", 50_145),
+                    "1",
                     new Employee( "Федор","Румянцев", "1", 70_445),
                     "3",
-                    new Employee( "Анастасия","Сидорова", "2", 56_132),
+                    new Employee( "Анастасия","Сидорова", "1", 56_132),
                     "4",
-                    new Employee( "Андрей", "Копылов", "2", 52_545),
+                    new Employee( "Андрей", "Копылов", "1", 52_545),
                     "5",
                     new Employee( "Виктор", "Станиславский", "3", 65_346)
             )

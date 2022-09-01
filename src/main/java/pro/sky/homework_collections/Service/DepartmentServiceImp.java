@@ -50,6 +50,7 @@ public class DepartmentServiceImp implements DepartmentInterface {
                 .map(e -> "Department " + e.getDepartment() + " : " + e.getFirstName() + " " + e.getLastName()
                 + " " + e.getSalary()).collect(Collectors.toList());
 
+        employeesOfDepartments.sort(Comparator.naturalOrder());
 
         return employeesOfDepartments;
     }
