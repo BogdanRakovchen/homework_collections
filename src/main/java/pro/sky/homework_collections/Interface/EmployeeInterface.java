@@ -2,7 +2,6 @@ package pro.sky.homework_collections.Interface;
 
 import pro.sky.homework_collections.Employee;
 
-import java.util.List;
 import java.util.Map;
 
 public interface EmployeeInterface {
