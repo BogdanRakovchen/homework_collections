@@ -21,16 +21,16 @@ public class EmployeeServiceImp implements EmployeeInterface {
     }
 
     Map<String, Employee> employees = new HashMap<>(Map.of(
-                    "2",
-                    new Employee("Иван", "Иванов", "2", 50_145),
-                    "1",
-                    new Employee( "Федор","Румянцев", "1", 70_445),
-                    "3",
-                    new Employee( "Анастасия","Сидорова", "1", 56_132),
-                    "4",
-                    new Employee( "Андрей", "Копылов", "1", 52_545),
-                    "5",
-                    new Employee( "Виктор", "Станиславский", "3", 65_346)
+            "2",
+            new Employee("Иван", "Иванов", "2", 50_145),
+            "1",
+            new Employee( "Федор","Румянцев", "1", 70_445),
+            "3",
+            new Employee( "Анастасия","Сидорова", "1", 56_132),
+            "4",
+            new Employee( "Андрей", "Копылов", "1", 52_545),
+            "5",
+            new Employee( "Виктор", "Станиславский", "3", 65_346)
             )
     );
 
@@ -38,31 +38,22 @@ public class EmployeeServiceImp implements EmployeeInterface {
     public Employee addEmployee(String firstName, String lastName, String department, int salary) {
 
         Employee employee = null;
-
         if(StringUtils.isEmpty(firstName)
                 || StringUtils.isEmpty(lastName)
                 || checkParametres(firstName)
                 || checkParametres(lastName) ) {
             throw new RuntimeException("error");
         } else {
-
             Iterator<Employee> employeeIterator = employees.values().iterator();
 
             if (employeeIterator.next().getFirstName().equals(firstName) && employeeIterator.next().getLastName().equals(lastName)) {
                 throw new RuntimeException("is already");
-
             }
-            if (employees.size() > 10) {
+            if (employees.size() > 5) {
                 throw new RuntimeException("is full");
             }
-
             employee = new Employee(StringUtils.trim(firstName), StringUtils.trim(lastName), department, salary);
-
             employees.put(firstName + " " + lastName, employee);
-
-
-
-
         }
 
         return employee;
