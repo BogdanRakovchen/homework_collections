@@ -46,13 +46,15 @@ public class EmployeeServiceImp implements EmployeeInterface {
         } else {
             Iterator<Employee> employeeIterator = employees.values().iterator();
 
-            if (employeeIterator.next().getFirstName().equals(firstName) && employeeIterator.next().getLastName().equals(lastName)) {
-                throw new RuntimeException("is already");
-            }
-            if (employees.size() > 5) {
+//                    if (employeeIterator.next().getFirstName().equals(firstName) && employeeIterator.next().getLastName().equals(lastName)) {
+//                        throw new RuntimeException("is already");
+//                    }
+
+            if (employees.size() > 15) {
                 throw new RuntimeException("is full");
             }
-            employee = new Employee(StringUtils.trim(firstName), StringUtils.trim(lastName), department, salary);
+
+            employee = new Employee(StringUtils.trim(firstName), StringUtils.trim(lastName), "1", 2);
             employees.put(firstName + " " + lastName, employee);
         }
 
@@ -79,7 +81,7 @@ public class EmployeeServiceImp implements EmployeeInterface {
     }
     @Override
     public Map<String, Employee> printAllEmployees() {
-        return new HashMap<>(employees);
+        return employees;
     }
 
 

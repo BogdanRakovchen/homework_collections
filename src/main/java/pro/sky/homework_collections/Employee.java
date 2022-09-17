@@ -23,6 +23,14 @@ public class Employee {
         return lastName;
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,14 +49,8 @@ public class Employee {
         return "Employee{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", department='" + department + '\'' +
+                ", salary=" + salary +
                 '}';
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public int getSalary() {
-        return salary;
     }
 }
