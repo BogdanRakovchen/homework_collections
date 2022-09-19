@@ -101,7 +101,7 @@ public class EmployeeServiceTest {
         RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> {
             try {
                 if (employeeIterator.next().getFirstName().equals("jon") && employeeIterator.next().getLastName().equals("smith")) {
-//                    throw new RuntimeException("is already");
+                    throw new RuntimeException("is already");
                 }
             } catch (RuntimeException e) {
                 throw new RuntimeException("is already");

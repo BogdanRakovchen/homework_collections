@@ -46,9 +46,9 @@ public class EmployeeServiceImp implements EmployeeInterface {
         } else {
             Iterator<Employee> employeeIterator = employees.values().iterator();
 
-//                    if (employeeIterator.next().getFirstName().equals(firstName) && employeeIterator.next().getLastName().equals(lastName)) {
-//                        throw new RuntimeException("is already");
-//                    }
+                    if (employeeIterator.next().getFirstName().equals(firstName) && employeeIterator.next().getLastName().equals(lastName)) {
+                        throw new RuntimeException("is already");
+                    }
 
             if (employees.size() > 15) {
                 throw new RuntimeException("is full");
