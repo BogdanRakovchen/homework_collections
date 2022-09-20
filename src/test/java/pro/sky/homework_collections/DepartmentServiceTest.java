@@ -4,9 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pro.sky.homework_collections.Service.DepartmentServiceImp;
 import pro.sky.homework_collections.Service.EmployeeServiceImp;
 
 import java.util.*;
@@ -15,8 +18,12 @@ import java.util.stream.Collectors;
 @ExtendWith(MockitoExtension.class)
 public class DepartmentServiceTest {
 
-    @Spy
-    private final EmployeeServiceImp employeeServiceImp;
+
+    @Mock
+    private final EmployeeServiceImp employeeServiceImp = new EmployeeServiceImp();
+    @InjectMocks
+    private final EmployeeServiceImp out = new EmployeeServiceImp();
+    private final DepartmentServiceImp departmentServiceImp;
 
     private Employee employee1;
     private Employee employee2;
@@ -28,63 +35,64 @@ public class DepartmentServiceTest {
 
 
     public DepartmentServiceTest() {
-        this.employeeServiceImp = new EmployeeServiceImp();
+
+//        this.employeeServiceImp = new EmployeeServiceImp();
+        this.departmentServiceImp = new DepartmentServiceImp(employeeServiceImp);
     }
 
     @BeforeEach
     public void setUp() {
 
-        employee1 = new Employee("anna", "smith", "1", 300);
-        employee2 = new Employee("anastasia", "smith", "1", 500);
-        employee3 = new Employee("jon", "smith", "2", 1500);
+        employee1 = new Employee( "Федор","Румянцев", "1", 70_445);
+        employee2 = new Employee( "Анастасия","Сидорова", "1", 56_132);
+        employee3 = new Employee( "Андрей", "Копылов", "1", 52_545);
 
 
 
-        Mockito.when(employeeServiceImp.printAllEmployees()).thenReturn(new HashMap<>(Map.of("1",
-                new Employee("anna", "smith", "1", 300),
-                "2", new Employee("anastasia", "smith", "1", 500),
-                "3", new Employee("jon", "smith", "2", 1500)
-                )));
+//        Mockito.when(employeeServiceImp.printAllEmployees()).thenReturn(new HashMap<>(Map.of
+//                (  "1", new Employee( "Федор","Румянцев", "1", 70_445),
+//                    "3", new Employee( "Анастасия","Сидорова", "1", 56_132),
+//                    "4", new Employee( "Андрей", "Копылов", "1", 52_545)
+//                )));
 
     }
 
     @Test
     public void shouldMethodFindEmployeeWithMaxSalary() {
 
-        Employee expected =  employeeServiceImp.printAllEmployees().values().stream()
+        Employee expected =  out.printAllEmployees().values().stream()
                 .filter(employee -> employee.getDepartment().equals("1"))
                 .max(Comparator.comparingInt(employee -> employee.getSalary())).orElseThrow();
 
-        Employee actual = new Employee("anna", "smith", "1", 300 );
+        Employee actual = departmentServiceImp.findEmployeeWithMaxSalary("1");
 
-        Assertions.assertTrue(() -> expected.getSalary() > actual.getSalary());
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
     public void shouldMethodFindEmployeeWithMinSalary() {
-        Employee expected =  employeeServiceImp.printAllEmployees().values().stream()
+        Employee expected =  out.printAllEmployees().values().stream()
                 .filter(employee -> employee.getDepartment().equals("1"))
                 .min(Comparator.comparingInt(employee -> employee.getSalary())).orElseThrow();
 
-        Employee actual = new Employee("anna", "smith", "1", 500 );
+        Employee actual = departmentServiceImp.findEmployeeWithMinSalary("1");
 
-        Assertions.assertTrue(() -> expected.getSalary() < actual.getSalary());
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
     public void shouldFindAllEmployeesOfDepartment() {
-        List<Employee> employeesOfDepartment =  employeeServiceImp.printAllEmployees().values().stream()
+        List<Employee> expected =  out.printAllEmployees().values().stream()
                 .filter(employee -> employee.getDepartment().equals("1")).collect(Collectors.toList());
 
-       String employee1 = employeesOfDepartment.get(0).getDepartment();
-       String employee2 = employeesOfDepartment.get(1).getDepartment();
+     List<Employee> actual = departmentServiceImp.findAllEmployeesOfDepartment("1");
 
-       Assertions.assertEquals(employee1, employee2);
+       Assertions.assertEquals(expected, actual);
     }
 
     @Test
     public void shouldFindAllEmployeesOfDepartments() {
-        List<String> expected = employeeServiceImp.printAllEmployees().values().stream()
+        List<String> expected = out.printAllEmployees().values().stream()
                 .map(e -> "Department " + e.getDepartment() + " : " + e.getFirstName() + " " + e.getLastName()
                         + " " + e.getSalary()).collect(Collectors.toList());
 

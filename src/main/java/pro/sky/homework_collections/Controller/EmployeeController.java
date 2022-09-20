@@ -32,7 +32,7 @@ public class EmployeeController {
         try {
             return employeeServiceImp.addEmployee(firstName, lastName, department, salary);
 
-        } catch (EmployeeAlreadyAdded | EmployeeStorageIsFullException e) {
+        } catch ( EmployeeStorageIsFullException | EmployeeAlreadyAdded e) {
             throw new RuntimeException(e);
         }
     }

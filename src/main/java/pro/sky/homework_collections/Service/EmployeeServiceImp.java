@@ -20,7 +20,7 @@ public class EmployeeServiceImp implements EmployeeInterface {
     return bool;
     }
 
-    Map<String, Employee> employees = new HashMap<>(Map.of(
+   private final Map<String, Employee> employees = new HashMap<>(Map.of(
             "2",
             new Employee("Иван", "Иванов", "2", 50_145),
             "1",
@@ -46,7 +46,7 @@ public class EmployeeServiceImp implements EmployeeInterface {
         } else {
             Iterator<Employee> employeeIterator = employees.values().iterator();
 
-                    if (employeeIterator.next().getFirstName().equals(firstName) && employeeIterator.next().getLastName().equals(lastName)) {
+            if (employeeIterator.next().getFirstName().contains(firstName) && employeeIterator.next().getLastName().contains(lastName)) {
                         throw new RuntimeException("is already");
                     }
 
@@ -54,7 +54,7 @@ public class EmployeeServiceImp implements EmployeeInterface {
                 throw new RuntimeException("is full");
             }
 
-            employee = new Employee(StringUtils.trim(firstName), StringUtils.trim(lastName), "1", 2);
+            employee = new Employee(StringUtils.trim(firstName), StringUtils.trim(lastName), department, salary);
             employees.put(firstName + " " + lastName, employee);
         }
 
@@ -84,6 +84,10 @@ public class EmployeeServiceImp implements EmployeeInterface {
         return employees;
     }
 
+
+    public Map<String, Employee> getEmployees() {
+        return employees;
+    }
 
 }
 

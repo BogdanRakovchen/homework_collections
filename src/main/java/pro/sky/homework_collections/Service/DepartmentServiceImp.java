@@ -20,25 +20,25 @@ public class DepartmentServiceImp implements DepartmentInterface {
     @Override
     public Employee findEmployeeWithMaxSalary(String departmentId) {
 
-       Employee employeeMaxSalary =  employeeServiceImp.employees.values().stream()
+       Employee employeeMaxSalary =  employeeServiceImp.getEmployees().values().stream()
                 .filter(employee -> employee.getDepartment().equals(departmentId))
-                .max(Comparator.comparingInt(employee -> employee.getSalary())).orElseThrow();
+                .max(Comparator.comparingInt(employee -> employee.getSalary())).orElseThrow(() -> new RuntimeException("Employee not found"));
 
        return employeeMaxSalary;
     }
     @Override
     public Employee findEmployeeWithMinSalary(String departmentId) {
 
-        Employee employeeMinSalary =  employeeServiceImp.employees.values().stream()
+        Employee employeeMinSalary =  employeeServiceImp.getEmployees().values().stream()
                 .filter(employee -> employee.getDepartment().equals(departmentId))
-                .min(Comparator.comparingInt(employee -> employee.getSalary())).orElseThrow(() -> new RuntimeException("Нет значения"));
+                .min(Comparator.comparingInt(employee -> employee.getSalary())).orElseThrow(() -> new RuntimeException("Employee not found"));
 
         return employeeMinSalary;
     }
 
     @Override
     public List<Employee> findAllEmployeesOfDepartment(String departmentId) {
-        List<Employee> employeesOfDepartment =  employeeServiceImp.employees.values().stream()
+        List<Employee> employeesOfDepartment =  employeeServiceImp.getEmployees().values().stream()
                 .filter(employee -> employee.getDepartment().equals(departmentId)).collect(Collectors.toList());
 
         return employeesOfDepartment;
@@ -46,7 +46,7 @@ public class DepartmentServiceImp implements DepartmentInterface {
 
     @Override
     public List<String> findAllEmployeesOfDepartments() {
-        List<String> employeesOfDepartments =  employeeServiceImp.employees.values().stream()
+        List<String> employeesOfDepartments =  employeeServiceImp.getEmployees().values().stream()
                 .map(e -> "Department " + e.getDepartment() + " : " + e.getFirstName() + " " + e.getLastName()
                 + " " + e.getSalary()).collect(Collectors.toList());
 
