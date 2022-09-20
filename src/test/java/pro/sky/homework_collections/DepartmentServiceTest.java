@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pro.sky.homework_collections.Interface.EmployeeInterface;
 import pro.sky.homework_collections.Service.DepartmentServiceImp;
 import pro.sky.homework_collections.Service.EmployeeServiceImp;
 
@@ -20,9 +21,9 @@ public class DepartmentServiceTest {
 
 
     @Mock
-    private final EmployeeServiceImp employeeServiceImp = new EmployeeServiceImp();
+    private EmployeeInterface employeeInterfaceMock;
     @InjectMocks
-    private final EmployeeServiceImp out = new EmployeeServiceImp();
+    private EmployeeServiceImp out;
     private final DepartmentServiceImp departmentServiceImp;
 
     private Employee employee1;
@@ -37,7 +38,7 @@ public class DepartmentServiceTest {
     public DepartmentServiceTest() {
 
 //        this.employeeServiceImp = new EmployeeServiceImp();
-        this.departmentServiceImp = new DepartmentServiceImp(employeeServiceImp);
+        this.departmentServiceImp = new DepartmentServiceImp(new EmployeeServiceImp());
     }
 
     @BeforeEach
@@ -49,11 +50,11 @@ public class DepartmentServiceTest {
 
 
 
-//        Mockito.when(employeeServiceImp.printAllEmployees()).thenReturn(new HashMap<>(Map.of
-//                (  "1", new Employee( "Федор","Румянцев", "1", 70_445),
-//                    "3", new Employee( "Анастасия","Сидорова", "1", 56_132),
-//                    "4", new Employee( "Андрей", "Копылов", "1", 52_545)
-//                )));
+        Mockito.when(employeeInterfaceMock.printAllEmployees()).thenReturn(new HashMap<>(Map.of
+                (  "1", new Employee( "Федор","Румянцев", "1", 70_445),
+                    "3", new Employee( "Анастасия","Сидорова", "1", 56_132),
+                    "4", new Employee( "Андрей", "Копылов", "1", 52_545)
+                )));
 
     }
 
