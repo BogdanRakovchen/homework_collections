@@ -34,12 +34,12 @@ public class DepartmentServiceTest {
 
 
 
-    public DepartmentServiceTest() {
-
-        this.employeeServiceImp = new EmployeeServiceImp();
-        this.out = new DepartmentServiceImp(new EmployeeServiceImp());
-
-    }
+//    public DepartmentServiceTest() {
+//
+//        this.employeeServiceImp = new EmployeeServiceImp();
+//        this.out = new DepartmentServiceImp(new EmployeeServiceImp());
+//
+//    }
 
     @BeforeEach
     public void setUp() {
@@ -51,9 +51,9 @@ public class DepartmentServiceTest {
 
 
         Mockito.when(employeeServiceImp.printAllEmployees()).thenReturn(new HashMap<>(Map.of
-                (  "1", new Employee( "Федор","Румянцев", "1", 70_445),
-                    "3", new Employee( "Анастасия","Сидорова", "1", 56_132),
-                    "4", new Employee( "Андрей", "Копылов", "1", 52_545)
+                (  "1", employee1,
+                    "3", employee2,
+                    "4", employee3
                 )));
 
     }
@@ -61,9 +61,7 @@ public class DepartmentServiceTest {
     @Test
     public void shouldMethodFindEmployeeWithMaxSalary() {
 
-        Employee expected =  employeeServiceImp.printAllEmployees().values().stream()
-                .filter(employee -> employee.getDepartment().equals("1"))
-                .max(Comparator.comparingInt(employee -> employee.getSalary())).orElseThrow();
+        Employee expected = employee1;
 
         Employee actual = out.findEmployeeWithMaxSalary("1");
 
@@ -72,9 +70,7 @@ public class DepartmentServiceTest {
 
     @Test
     public void shouldMethodFindEmployeeWithMinSalary() {
-        Employee expected =  employeeServiceImp.printAllEmployees().values().stream()
-                .filter(employee -> employee.getDepartment().equals("1"))
-                .min(Comparator.comparingInt(employee -> employee.getSalary())).orElseThrow();
+        Employee expected = employee3;
 
         Employee actual = out.findEmployeeWithMinSalary("1");
 
@@ -83,8 +79,7 @@ public class DepartmentServiceTest {
 
     @Test
     public void shouldFindAllEmployeesOfDepartment() {
-        List<Employee> expected =  employeeServiceImp.printAllEmployees().values().stream()
-                .filter(employee -> employee.getDepartment().equals("1")).collect(Collectors.toList());
+        List<Employee> expected = new ArrayList<>(List.of(employee1, employee2, employee3));
 
      List<Employee> actual = out.findAllEmployeesOfDepartment("1");
 
