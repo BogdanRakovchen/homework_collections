@@ -46,12 +46,11 @@ public class DepartmentServiceImp implements DepartmentInterface {
 
     @Override
     public List<String> findAllEmployeesOfDepartments() {
-        List<String> employeesOfDepartments =  employeeServiceImp.getEmployees().values().stream()
+        List<String> employeesOfDepartments =  employeeServiceImp.printAllEmployees().values().stream()
                 .map(e -> "Department " + e.getDepartment() + " : " + e.getFirstName() + " " + e.getLastName()
                 + " " + e.getSalary()).collect(Collectors.toList());
 
         employeesOfDepartments.sort(Comparator.naturalOrder());
-
         return employeesOfDepartments;
     }
 

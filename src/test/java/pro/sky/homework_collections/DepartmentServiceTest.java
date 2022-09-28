@@ -94,13 +94,8 @@ public class DepartmentServiceTest {
 
         expected.sort(Comparator.naturalOrder());
 
-        List<String> actual = new ArrayList<>(List.of());
-        actual.add("Department " + employee1.getDepartment() + " : " + employee1.getFirstName() + " " + employee1.getLastName()
-                + " " + employee1.getSalary());
-        actual.add("Department " + employee2.getDepartment() + " : " + employee2.getFirstName() + " " + employee2.getLastName()
-                + " " + employee2.getSalary());
-        actual.add("Department " + employee3.getDepartment() + " : " + employee3.getFirstName() + " " + employee3.getLastName()
-                + " " + employee3.getSalary());
+
+        List<String> actual = out.findAllEmployeesOfDepartments();
 
         actual.sort(Comparator.naturalOrder());
 
